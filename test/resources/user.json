@@ -1,0 +1,15 @@
+{
+    "email": "eu@iqueiroz.com.br",
+    "login": "ismael.queiroz",
+    "password": "123456",
+    "name": "Ismael",
+    "surname": "Queiroz",
+    "roles": [
+        "app:home",
+        "app:dashboard",
+        "app:administrador"
+    ],
+    "state": 1,
+    "created": "2017-10-17T13:23:44.804-0300",
+    "fullname": "Ismael Queiroz"
+}

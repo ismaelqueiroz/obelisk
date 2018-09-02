@@ -1,0 +1,9 @@
+{
+    "passport": {
+        "enabled": true,
+        "priority": 119,
+        "module": {
+            "name": "path:../middleware/passport"
+        }
+    }
+}

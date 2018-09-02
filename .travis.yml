@@ -1,0 +1,39 @@
+language: node_js
+
+node_js:
+  - '8.9.1'
+
+services:
+  - mongodb
+
+env:
+  - DATABASE_URL="mongodb://127.0.0.1:27017/obelisk" DATABASE_NAME="obelisk"
+
+before_install:
+  - npm install -g greenkeeper-lockfile@1
+  - openssl genrsa 4096 -aes256 > longboard.pem
+  - openssl pkcs8 -topk8 -inform PEM -outform PEM -in longboard.pem -out longboard-private.pem -nocrypt
+  - openssl rsa -in longboard-private.pem -pubout -outform PEM -out longboard-public.pem
+  - mongo obelisk --eval 'db.createUser({user:"obelisk", pwd:"obelisk", roles:["readWrite"]});'
+  - mongo obelisk --eval 'db.users.insert({ "email":"eu@iqueiroz.com.br", "login":"ismael.queiroz", "password":"123456", "name":"Ismael", "surname":"Queiroz", "roles":["app:dashboard"], "state":1, "created":"2017-10-17T13:23:44.804-0300"});'
+
+before_script:
+  - greenkeeper-lockfile-update
+
+after_script:
+  - greenkeeper-lockfile-upload
+
+after_success:
+  - npm run coverage
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+  slack:
+    rooms:
+      secure: "IC5JvKbQrf+f2FG+9GWRTX7rYL4Ex1/aMC+ycDiMgnM8rXSbsWnrNtbzWTthGPurkcOkCjkgG9NMHYv44dJr1f/03Dsq7VHebsj5t/5TFVrTTJ1NSKTGpIRN2QjvR0XTOqiI16NLs9bgc5n69WN4BR+9UIQnQi8G0uMnJjJE8R+BQIO1VdiNJfI4nCybWdEfAZsjd6uozdr0pN5AXmBLyZSjG6qRVo9YBLdiQCZrjtj/ZPrmwot7wGTH11PhQyxrh2luKbOIC4lZBRw+6EU5/7shgwHry5c42RomzpMEk7eHkYKiM5FDS1BTHl1dkAUoT8x43dBV4ddNfiYdBzyBim0C66/7dw0Y67An4QBFtHcXmaCy1437VjbcF4StpyAh9/2AsmPjLMuKCc0ZMSvSHirdHiToV1+mzEPWeu1/p6ylRgv4RcPBNc0lb9PMrkY4h1ZL7XrvXmPpR6/tZrha5Qbpbjoa7MxW8qi/G4cYhTl8PHxIbdmD4ldihZUQyz7U6y4Vbsy2Nkv+42wG0xFrJ9tfPE3EuHizjAXzzzVRN8pZjaEv1uuNRb7yHT1slqLXc4aHFlqXlDWRWyEiX0FFEN6BiRgxGT8SOOMkiMEjMDKW8x3j37ygiNZJG8s7pXAMmVRB65OIl+SxdCvKhbNBh0bBd9fM4CR9S8HN+MSqmCY="

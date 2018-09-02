@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
+        "module": "commonjs",
+        /* Basic Options */
+        "target": "es6",
+        /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+        "outDir": "dist",
+        /* Strict Type-Checking Options */
+        "strict": true,
+        /* Enable all strict type-checking options. */
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        /* Generates corresponding '.map' file. */
+        "sourceMap": true,
+        /* Raise error on expressions and declarations with an implied 'any' type. */
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "ES2016",
+            "es6"
+        ],
+        "types": [
+            "reflect-metadata"
+        ],
+        "baseUrl": ".",
+        /* List of folders to include type definitions from. */
+        "paths": {
+            "*": [
+                "*"
+            ]
+        },
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "include": [
+        "./**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "node_modules/moment/moment.d.ts",
+        "node_modules/@types/mocha/index.d.ts"
+    ]
+}
